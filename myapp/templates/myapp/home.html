@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Text Analyzer</title>
-
     <style>
         * {
             margin: 0;
@@ -15,6 +14,7 @@
 
         body {
             background: #f4f6f8;
+            min-height: 100vh;
         }
 
         header {
@@ -24,6 +24,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         header h2 {
@@ -33,67 +36,135 @@
         nav a {
             color: white;
             text-decoration: none;
-            margin-left: 25px;
+            margin-left: 20px;
             font-size: 15px;
             padding: 8px 14px;
             border-radius: 6px;
-            transition: 0.3s;
+            transition: 0.2s;
         }
 
         nav a:hover {
             background: #1f2933;
         }
 
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 85vh;
+        .page-wrapper {
+            max-width: 780px;
+            margin: 40px auto;
+            padding: 0 20px 60px 20px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .hero h1 {
+            font-size: 28px;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .hero p {
+            color: #6b7280;
+            font-size: 15px;
         }
 
         .card {
             background: white;
-            padding: 30px;
-            width: 500px;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 28px;
+            margin-bottom: 20px;
         }
 
-        .card h1 {
-            font-size: 20px;
-            margin-bottom: 20px;
-            color: #111827;
+        .card-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: #6b7280;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 14px;
         }
 
         textarea {
             width: 100%;
-            height: 120px;
-            padding: 10px;
-            border-radius: 6px;
+            height: 140px;
+            padding: 12px;
+            border-radius: 8px;
             border: 1px solid #d1d5db;
-            resize: none;
-            margin-bottom: 15px;
-        }
-
-        .options {
-            margin: 15px 0;
-            line-height: 28px;
+            resize: vertical;
             font-size: 14px;
+            color: #374151;
+            line-height: 1.6;
+            outline: none;
+            transition: border 0.2s;
         }
 
-        button {
-            width: 100%;
-            padding: 10px;
+        textarea:focus {
+            border-color: #111827;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 14px;
+            color: #374151;
+        }
+
+        .checkbox-item:hover {
+            border-color: #111827;
+            background: #f9fafb;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            accent-color: #111827;
+        }
+
+        .divider {
             border: none;
+            border-top: 1px solid #f3f4f6;
+            margin: 20px 0;
+        }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: bold;
+            color: #9ca3af;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .btn-analyze {
+            width: 100%;
+            padding: 13px;
             background: #111827;
             color: white;
-            border-radius: 6px;
+            border: none;
+            border-radius: 8px;
             font-size: 15px;
+            font-weight: bold;
             cursor: pointer;
-            transition: 0.3s;
+            transition: 0.2s;
+            letter-spacing: 0.03em;
         }
 
-        button:hover {
+        .btn-analyze:hover {
             background: #000;
         }
     </style>
@@ -105,28 +176,69 @@
     <h2>Text Analyzer</h2>
     <nav>
         <a href="/">Home</a>
-        <a href="about/">About Us</a>
+        <a href="/about/">About Us</a>
     </nav>
 </header>
 
-<div class="container">
-    <div class="card">
-        <h1>WELCOME TO THE TEXT ANALYZER</h1>
+<div class="page-wrapper">
 
-        <form action="/analyzetext" method="post">{% csrf_token %}
-            <textarea name="text" placeholder="Enter your text here..."></textarea>
+    <div class="hero">
+        <h1>Text Analyzer</h1>
+        <p>Transform and analyze your text instantly — select the options you need below.</p>
+    </div>
 
-            <div class="options">
-                <input type="checkbox" name="fullcaps"> UPPERCASE<br>
-                <input type="checkbox" name="newlineremover"> Remove New Lines<br>
-                <input type="checkbox" name="extralineremover"> Remove Extra Spaces<br>
-                <input type="checkbox" name="charc"> Count Characters<br>
-                <input type="checkbox" name="removepunc"> Remove Punctuations<br>
+    <form action="/analyzetext" method="post">
+        {% csrf_token %}
+
+        <!-- Text Input -->
+        <div class="card">
+            <div class="card-title">Your Text</div>
+            <textarea name="text" placeholder="Enter or paste your text here..."></textarea>
+        </div>
+
+        <!-- Options -->
+        <div class="card">
+            <div class="section-label">Transformations</div>
+            <div class="options-grid">
+                <label class="checkbox-item">
+                    <input type="checkbox" name="fullcaps"> Uppercase
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" name="titlecase"> Title Case
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" name="newlineremover"> Remove New Lines
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" name="extralineremover"> Remove Extra Spaces
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" name="removepunc"> Remove Punctuations
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" name="reversetext"> Reverse Text
+                </label>
             </div>
 
-            <button type="submit">Analyze Text</button>
-        </form>
-    </div>
+            <hr class="divider">
+
+            <div class="section-label">Analysis</div>
+            <div class="options-grid">
+                <label class="checkbox-item">
+                    <input type="checkbox" name="wordcount"> Word Count
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" name="charcount"> Character Count
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" name="sentencecount"> Sentence Count
+                </label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-analyze">Analyze Text →</button>
+
+    </form>
 </div>
 
 </body>

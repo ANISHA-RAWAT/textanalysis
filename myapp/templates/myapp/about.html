@@ -3,91 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
-
+    <title>About Us – Text Analyzer</title>
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-        }
-
-        header {
-            background: #111827;
-            color: white;
-            padding: 15px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin-left: 25px;
-            font-size: 15px;
-            padding: 8px 14px;
-            border-radius: 6px;
-        }
-
-        nav a:hover {
-            background: #1f2933;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 60px auto;
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-        }
-
-        h1 {
-            margin-bottom: 20px;
-            color: #111827;
-        }
-
-        p {
-            color: #374151;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { background: #f4f6f8; min-height: 100vh; }
+        header { background: #111827; color: white; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; }
+        header h2 { font-size: 22px; }
+        nav a { color: white; text-decoration: none; margin-left: 20px; font-size: 15px; padding: 8px 14px; border-radius: 6px; transition: 0.2s; }
+        nav a:hover { background: #1f2933; }
+        .page-wrapper { max-width: 780px; margin: 40px auto; padding: 0 20px 60px 20px; }
+        .card { background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); padding: 36px; }
+        .card h1 { font-size: 26px; color: #111827; margin-bottom: 20px; }
+        .card p { color: #374151; line-height: 1.8; font-size: 15px; margin-bottom: 16px; }
+        .divider { border: none; border-top: 1px solid #f3f4f6; margin: 24px 0; }
+        .card h2 { font-size: 16px; color: #111827; margin-bottom: 14px; }
+        ul { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        ul li { font-size: 14px; color: #374151; padding: 10px 14px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; }
+        ul li::before { content: "— "; color: #9ca3af; }
+        .btn-try { display: inline-block; margin-top: 24px; padding: 11px 26px; background: #111827; color: white; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: bold; transition: 0.2s; }
+        .btn-try:hover { background: #000; }
     </style>
 </head>
-
 <body>
-
 <header>
     <h2>Text Analyzer</h2>
     <nav>
         <a href="/">Home</a>
-        <a href="about/">About Us</a>
+        <a href="/about/">About Us</a>
     </nav>
 </header>
-
-<div class="container">
-    <h1>About Us</h1>
-
-    <p>
-        Welcome to Text Analyzer — a simple yet powerful tool designed to help users quickly transform
-        and analyze text with ease.
-    </p>
-
-    <p>
-        This application allows you to perform useful text operations such as converting text to uppercase,
-        removing extra spaces, eliminating new lines, counting characters, and removing punctuations.
-    </p>
-
-    <p>
-        Our goal is to build clean, fast, and user-friendly tools that solve everyday problems efficiently.
-        This project is part of a continuous learning journey in web development and backend technologies.
-    </p>
-
-    <p>
-        Thank you for using Text Analyzer.
-    </p>
+<div class="page-wrapper">
+    <div class="card">
+        <h1>About Text Analyzer</h1>
+        <p>Text Analyzer is a lightweight web application built with Python and Django that helps you transform and analyze text quickly and easily.</p>
+        <p>The idea behind this project was simple — provide a clean, distraction-free tool for everyday text operations without any sign-up or setup required. Just paste your text, select what you need, and get your result instantly.</p>
+        <p>This project was built as part of a learning journey in backend web development, focusing on Python, Django, and building practical tools that solve real problems.</p>
+        <hr class="divider">
+        <h2>What you can do</h2>
+        <ul>
+            <li>Convert to Uppercase</li>
+            <li>Convert to Title Case</li>
+            <li>Remove New Lines</li>
+            <li>Remove Extra Spaces</li>
+            <li>Remove Punctuations</li>
+            <li>Reverse Text</li>
+            <li>Word Count</li>
+            <li>Character Count</li>
+            <li>Sentence Count</li>
+        </ul>
+        <a href="/" class="btn-try">Try it now</a>
+    </div>
 </div>
-
 </body>
 </html>
